@@ -1,0 +1,646 @@
+/* ===============================
+   Theme Variables
+   =============================== */
+:root[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --card-bg: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --button-primary-bg: #3b82f6;
+  --button-primary-text: #ffffff;
+  --button-primary-hover: #2563eb;
+  --button-cancel-bg: #f3f4f6;
+  --button-cancel-hover: #e5e7eb;
+  --error-bg: #fef2f2;
+  --error-text: #dc2626;
+  --success-bg: #d4edda;
+  --success-text: #155724;
+  --export-btn-bg: #10b981;
+  --export-btn-hover: #059669;
+  --delete-btn-bg: #ef4444;
+  --delete-btn-hover: #dc2626;
+  --team-card-header-bg: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  --team-icon-bg: rgba(255, 255, 255, 0.2);
+  --feature-not-available-bg: #fff3cd;
+  --feature-not-available-border: #ffeaa7;
+  --feature-not-available-text: #856404;
+  --feature-not-available-icon: #f39c12;
+}
+
+:root[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --card-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #475569;
+  --input-bg: #334155;
+  --input-border: #475569;
+  --button-primary-bg: #60a5fa;
+  --button-primary-text: #0f172a;
+  --button-primary-hover: #3b82f6;
+  --button-cancel-bg: #475569;
+  --button-cancel-hover: #334155;
+  --error-bg: #451a1a;
+  --error-text: #f87171;
+  --success-bg: #1a4d2e;
+  --success-text: #a3f7bf;
+  --export-btn-bg: #16a34a;
+  --export-btn-hover: #15803d;
+  --delete-btn-bg: #b91c1c;
+  --delete-btn-hover: #7f1d1d;
+  --team-card-header-bg: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  --team-icon-bg: rgba(255, 255, 255, 0.1);
+  --feature-not-available-bg: #3f2a1d;
+  --feature-not-available-border: #7f5539;
+  --feature-not-available-text: #f4a261;
+  --feature-not-available-icon: #e76f51;
+}
+
+/* ===============================
+   Base Layout
+   =============================== */
+.teams-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.teams-header {
+  background: var(--card-bg);
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.back-button {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: var(--button-primary-hover);
+  transform: translateX(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.teams-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  flex: 1;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.add-team-btn {
+  background: var(--export-btn-bg);
+  color: var(--button-primary-text);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.add-team-btn:hover {
+  background: var(--export-btn-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.error-message {
+  background: var(--error-bg);
+  color: var(--error-text);
+  padding: 1rem 2rem;
+  margin: 1rem 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--error-text);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.teams-grid {
+  flex: 1;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.team-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+}
+
+.team-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.team-card-header {
+  padding: 1.5rem;
+  background: var(--team-card-header-bg);
+  color: var(--button-primary-text);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.team-icon {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: var(--team-icon-bg);
+  border-radius: 50%;
+}
+
+.team-card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.team-card-body {
+  padding: 1.5rem;
+  flex: 1;
+  min-height: 120px;
+}
+
+.team-description {
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.team-card-footer {
+  padding: 1rem 1.5rem;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-btn {
+  background: #fbbf24;
+  color: var(--button-primary-text);
+}
+
+.edit-btn:hover {
+  background: #f59e0b;
+}
+
+.delete-btn {
+  background: var(--delete-btn-bg);
+  color: var(--button-primary-text);
+}
+
+.delete-btn:hover {
+  background: var(--delete-btn-hover);
+}
+
+.team-members {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.empty-state h3 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* ===============================
+   Modal Styles
+   =============================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+}
+
+.modal-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: var(--button-cancel-hover);
+  color: var(--text-primary);
+}
+
+.team-form {
+  padding: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--button-primary-bg);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cancel-btn {
+  background: var(--button-cancel-bg);
+  color: var(--text-primary);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background: var(--button-cancel-hover);
+}
+
+.submit-btn {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: var(--button-primary-hover);
+  transform: translateY(-1px);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+/* ===============================
+   Team Members Section
+   =============================== */
+.team-members-section {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+
+.team-members-section h4 {
+  margin: 0 0 10px 0;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.members-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: var(--input-bg);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.member-icon {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.member-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.member-email {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.remove-member-btn {
+  background: none;
+  border: none;
+  color: var(--delete-btn-bg);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 3px;
+}
+
+.remove-member-btn:hover {
+  background-color: var(--delete-btn-hover);
+  color: var(--button-primary-text);
+}
+
+.no-members {
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* ===============================
+   Add Member Button
+   =============================== */
+.add-member-btn {
+  background: none;
+  border: none;
+  color: var(--export-btn-bg);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.add-member-btn:hover {
+  background-color: var(--export-btn-hover);
+  color: var(--button-primary-text);
+}
+
+.add-member-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.add-member-btn:disabled:hover {
+  background-color: transparent;
+  color: var(--export-btn-bg);
+}
+
+/* ===============================
+   Feature Not Available Styles
+   =============================== */
+.feature-not-available {
+  background-color: var(--feature-not-available-bg);
+  border: 1px solid var(--feature-not-available-border);
+  border-radius: 6px;
+  padding: 15px;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.feature-not-available svg {
+  color: var(--feature-not-available-icon);
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.feature-not-available p {
+  margin: 5px 0;
+  color: var(--feature-not-available-text);
+}
+
+.feature-not-available small {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.feature-not-available-modal {
+  text-align: center;
+  padding: 20px;
+}
+
+.feature-not-available-modal .warning-icon {
+  color: var(--feature-not-available-icon);
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.feature-not-available-modal h3 {
+  color: var(--feature-not-available-text);
+  margin-bottom: 10px;
+}
+
+.feature-not-available-modal p {
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+/* ===============================
+   Responsive Design
+   =============================== */
+@media (max-width: 768px) {
+  .teams-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    margin-top: 20px;
+  }
+
+  .teams-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    margin: 1rem;
+  }
+
+  .team-form {
+    padding: 1.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .cancel-btn,
+  .submit-btn {
+    width: 100%;
+  }
+
+  .member-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .remove-member-btn {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .teams-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .team-card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .team-card-footer {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .team-actions {
+    justify-content: center;
+  }
+}

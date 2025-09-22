@@ -1,0 +1,223 @@
+/* ===============================
+   Theme Variables
+   =============================== */
+:root[data-theme="light"] {
+  --bg-main: #f8f9fa;
+  --bg-card: #ffffff;
+  --bg-muted: #f8f9fa;
+  --text-primary: #2c3e50;
+  --text-secondary: #6c757d;
+  --border-color: #ddd;
+  --border-focus: #4a90e2;
+  --btn-primary: #4a90e2;
+  --btn-primary-hover: #3a80d2;
+  --btn-cancel: #f8f9fa;
+  --btn-cancel-hover: #e9ecef;
+  --error-bg: #ffe6e6;
+  --error-text: #d32f2f;
+}
+
+:root[data-theme="dark"] {
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --bg-muted: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #475569;
+  --border-focus: #60a5fa;
+  --btn-primary: #60a5fa;
+  --btn-primary-hover: #3b82f6;
+  --btn-cancel: #334155;
+  --btn-cancel-hover: #475569;
+  --error-bg: #451a1a;
+  --error-text: #f87171;
+}
+
+/* ===============================
+   Base Layout
+   =============================== */
+.add-project-container {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  font-family: "Arial", sans-serif;
+  color: var(--text-primary);
+}
+
+.add-project-header {
+  background-color: var(--bg-card);
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.add-project-header h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.8rem;
+}
+
+.back-button {
+  background-color: transparent;
+  border: 1px solid var(--btn-primary);
+  color: var(--btn-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+.back-button:hover {
+  background-color: var(--btn-primary);
+  color: white;
+}
+
+/* ===============================
+   Form Content
+   =============================== */
+.add-project-content {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.project-form {
+  background-color: var(--bg-card);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  padding: 0.8rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  background-color: var(--bg-muted);
+  color: var(--text-primary);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.form-input:disabled,
+.form-textarea:disabled {
+  background-color: var(--bg-main);
+  cursor: not-allowed;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ===============================
+   Form Actions
+   =============================== */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cancel-button {
+  background-color: var(--btn-cancel);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.cancel-button:hover:not(:disabled) {
+  background-color: var(--btn-cancel-hover);
+  border-color: var(--text-secondary);
+}
+
+.submit-button {
+  background-color: var(--btn-primary);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: var(--btn-primary-hover);
+}
+
+.submit-button:disabled,
+.cancel-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   Responsive Design
+   =============================== */
+@media (max-width: 768px) {
+  .add-project-header {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .add-project-content {
+    margin: 1rem auto;
+  }
+
+  .project-form {
+    padding: 1.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .cancel-button,
+  .submit-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

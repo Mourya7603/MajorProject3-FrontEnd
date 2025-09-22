@@ -1,0 +1,179 @@
+/* Dark Theme Variables */
+[data-theme="dark"] {
+  /* Main backgrounds */
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #2d2d2d;
+  
+  /* Text colors */
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --text-muted: #888888;
+  
+  /* Borders and dividers */
+  --border-color: #333333;
+  --divider-color: #444444;
+  
+  /* Cards and surfaces */
+  --card-bg: #1e1e1e;
+  --card-border: #333333;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  
+  /* Form elements */
+  --input-bg: #2d2d2d;
+  --input-border: #404040;
+  --input-text: #e0e0e0;
+  --input-placeholder: #888888;
+  
+  /* Buttons */
+  --button-primary-bg: #1976d2;
+  --button-primary-text: #ffffff;
+  --button-secondary-bg: #5a6268;
+  --button-secondary-text: #ffffff;
+  --button-danger-bg: #d32f2f;
+  --button-danger-text: #ffffff;
+  
+  /* Sidebar */
+  --sidebar-bg: #1a1a1a;
+  --sidebar-text: #e0e0e0;
+  --sidebar-hover: #2d2d2d;
+  --sidebar-active: #1976d2;
+  
+  /* Status colors */
+  --status-todo: #666666;
+  --status-in-progress: #ffb74d;
+  --status-completed: #4caf50;
+  --status-blocked: #f44336;
+}
+
+/* Apply dark theme to all containers */
+[data-theme="dark"] .add-project-container,
+[data-theme="dark"] .add-task-container,
+[data-theme="dark"] .dashboard-container,
+[data-theme="dark"] .project-detail-container,
+[data-theme="dark"] .projects-list-container,
+[data-theme="dark"] .reports-container,
+[data-theme="dark"] .settings-container,
+[data-theme="dark"] .teams-container {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Apply dark theme to headers */
+[data-theme="dark"] .add-project-header,
+[data-theme="dark"] .add-task-header,
+[data-theme="dark"] .dashboard-header,
+[data-theme="dark"] .project-header,
+[data-theme="dark"] .projects-header,
+[data-theme="dark"] .reports-header,
+[data-theme="dark"] .settings-header,
+[data-theme="dark"] .teams-header {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Apply dark theme to forms and cards */
+[data-theme="dark"] .project-form,
+[data-theme="dark"] .task-form,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .team-card,
+[data-theme="dark"] .settings-content,
+[data-theme="dark"] .report-card,
+[data-theme="dark"] .stat-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+/* Apply dark theme to form elements */
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-textarea,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .search-input,
+[data-theme="dark"] .date-input,
+[data-theme="dark"] .status-filter {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--input-text);
+}
+
+[data-theme="dark"] .form-input::placeholder,
+[data-theme="dark"] .form-textarea::placeholder {
+  color: var(--input-placeholder);
+}
+
+/* Apply dark theme to buttons */
+[data-theme="dark"] .back-button,
+[data-theme="dark"] .add-btn,
+[data-theme="dark"] .view-btn,
+[data-theme="dark"] .submit-button,
+[data-theme="dark"] .cancel-button,
+[data-theme="dark"] .logout-btn,
+[data-theme="dark"] .export-button {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+}
+
+/* Apply dark theme to sidebar */
+[data-theme="dark"] .sidebar {
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+}
+
+[data-theme="dark"] .sidebar-item:hover {
+  background-color: var(--sidebar-hover);
+}
+
+[data-theme="dark"] .sidebar-item.active {
+  background-color: var(--sidebar-active);
+}
+
+/* Apply dark theme to tables and lists */
+[data-theme="dark"] .task-item,
+[data-theme="dark"] .projects-list,
+[data-theme="dark"] .tasks-list {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Status badges in dark mode */
+[data-theme="dark"] .status.to-do {
+  background-color: var(--status-todo);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .status.in-progress {
+  background-color: var(--status-in-progress);
+  color: #000000;
+}
+
+[data-theme="dark"] .status.completed {
+  background-color: var(--status-completed);
+  color: #000000;
+}
+
+[data-theme="dark"] .status.blocked {
+  background-color: var(--status-blocked);
+  color: #ffffff;
+}
+
+/* Error and success messages */
+[data-theme="dark"] .error-message {
+  background-color: rgba(211, 47, 47, 0.1);
+  color: #ff8a80;
+  border-color: #d32f2f;
+}
+
+[data-theme="dark"] .success-message {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #a5d6a7;
+  border-color: #4caf50;
+}
+
+/* Transitions for smooth theme switching */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

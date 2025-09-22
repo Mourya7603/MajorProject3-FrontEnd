@@ -1,0 +1,278 @@
+/* 🌞 Light Theme (Default) */
+:root {
+  --color-bg: #f8fafc;
+  --color-card: #ffffff;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-border: #e2e8f0;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-success: #10b981;
+  --color-success-hover: #059669;
+  --color-error-bg: #fef2f2;
+  --color-error-text: #dc2626;
+  --color-warning-bg: #fef3c7;
+  --color-warning-text: #92400e;
+  --color-complete-bg: #d1fae5;
+  --color-complete-text: #065f46;
+  --color-blocked-bg: #fee2e2;
+  --color-blocked-text: #991b1b;
+}
+
+/* 🌙 Dark Theme */
+[data-theme="dark"] {
+  --color-bg: #0f172b;
+  --color-card: #1e293b;
+  --color-text: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-border: #334155;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-success: #059669;
+  --color-success-hover: #047857;
+  --color-error-bg: #2c0f0f;
+  --color-error-text: #f87171;
+  --color-warning-bg: #78350f;
+  --color-warning-text: #fde68a;
+  --color-complete-bg: #064e3b;
+  --color-complete-text: #bbf7d0;
+  --color-blocked-bg: #7f1d1d;
+  --color-blocked-text: #fecaca;
+}
+
+/* =========================
+   BASE STYLES (use variables)
+========================= */
+.project-detail-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  background-color: var(--color-bg);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-header {
+  background-color: var(--color-card);
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.back-button {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.back-button:hover {
+  transform: translateX(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.project-header h1 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.project-description {
+  background-color: var(--color-card);
+  padding: 1.5rem 2rem;
+  margin: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid var(--color-primary);
+}
+.project-description p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.project-content {
+  flex: 1;
+  padding: 1.5rem 2rem;
+}
+
+.tasks-section {
+  background-color: var(--color-card);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.tasks-header h2 {
+  color: var(--color-text);
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.add-task-btn {
+  background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-hover) 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.add-task-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Filters */
+.filters-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--color-bg);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.filter-group span,
+.sort-group span {
+  color: var(--color-text);
+  font-weight: 500;
+}
+.filter-select,
+.sort-select {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-card);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  min-width: 150px;
+}
+
+/* Tasks */
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  gap: 1.5rem;
+}
+.task-item:hover {
+  border-color: var(--color-primary);
+}
+
+.task-main-info h4 {
+  color: var(--color-text);
+}
+
+.detail {
+  background-color: var(--color-bg);
+  color: var(--color-text-secondary);
+}
+
+.status.to-do {
+  background-color: var(--color-border);
+  color: var(--color-text);
+}
+.status.in-progress {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+.status.completed {
+  background-color: var(--color-complete-bg);
+  color: var(--color-complete-text);
+}
+.status.blocked {
+  background-color: var(--color-blocked-bg);
+  color: var(--color-blocked-text);
+}
+
+.priority-badge.high {
+  background-color: var(--color-blocked-bg);
+  color: var(--color-blocked-text);
+}
+.priority-badge.medium {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+.priority-badge.low {
+  background-color: var(--color-complete-bg);
+  color: var(--color-complete-text);
+}
+
+.view-task-btn {
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+.view-task-btn:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* States */
+.empty-state {
+  background-color: var(--color-bg);
+  border: 2px dashed var(--color-border);
+  color: var(--color-text-secondary);
+}
+.error-state {
+  background-color: var(--color-error-bg);
+  color: var(--color-error-text);
+  border: 1px solid var(--color-error-text);
+}
+.loading {
+  color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .project-header,
+  .tasks-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .task-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

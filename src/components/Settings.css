@@ -1,0 +1,390 @@
+/* ===============================
+   Theme Variables
+   =============================== */
+:root[data-theme="light"] {
+  --bg-primary: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --border-color: #dee2e6;
+  --input-bg: #ffffff;
+  --input-border: #ddd;
+  --button-primary-bg: #007bff;
+  --button-primary-text: #ffffff;
+  --button-primary-hover: #0056b3;
+  --button-cancel-bg: #f8f9fa;
+  --button-cancel-hover: #e9ecef;
+  --error-bg: #f8d7da;
+  --error-text: #721c24;
+  --success-bg: #d4edda;
+  --success-text: #155724;
+  --export-btn-bg: #28a745;
+  --export-btn-hover: #218838;
+  --delete-btn-bg: #dc3545;
+  --delete-btn-hover: #c82333;
+}
+
+:root[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --card-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #475569;
+  --input-bg: #334155;
+  --input-border: #475569;
+  --button-primary-bg: #60a5fa;
+  --button-primary-text: #0f172a;
+  --button-primary-hover: #3b82f6;
+  --button-cancel-bg: #475569;
+  --button-cancel-hover: #334155;
+  --error-bg: #451a1a;
+  --error-text: #f87171;
+  --success-bg: #1a4d2e;
+  --success-text: #a3f7bf;
+  --export-btn-bg: #16a34a;
+  --export-btn-hover: #15803d;
+  --delete-btn-bg: #b91c1c;
+  --delete-btn-hover: #7f1d1d;
+}
+
+/* ===============================
+   Base Layout
+   =============================== */
+.settings-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.back-button {
+  background-color: var(--button-cancel-bg);
+  color: var(--text-primary);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.back-button:hover {
+  background-color: var(--button-cancel-hover);
+}
+
+.settings-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.settings-tabs button {
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.settings-tabs button:hover {
+  color: var(--button-primary-bg);
+}
+
+.settings-tabs button.active {
+  color: var(--button-primary-bg);
+  border-bottom-color: var(--button-primary-bg);
+  background-color: var(--card-bg);
+}
+
+.settings-content {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+.settings-section {
+  max-width: 600px;
+}
+
+.settings-section h2 {
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.settings-section h3 {
+  margin: 25px 0 15px 0;
+  color: var(--text-secondary);
+}
+
+/* ===============================
+   Form Styles
+   =============================== */
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--button-primary-bg);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* ===============================
+   Form Actions
+   =============================== */
+.form-actions {
+  margin-top: 20px;
+}
+
+.save-button {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.save-button:hover:not(:disabled) {
+  background-color: var(--button-primary-hover);
+}
+
+.save-button:disabled {
+  background-color: var(--button-cancel-bg);
+  cursor: not-allowed;
+}
+
+/* ===============================
+   Messages
+   =============================== */
+.error-message {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  border: 1px solid #f5c6cb;
+}
+
+.success-message {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+  border: 1px solid #c3e6cb;
+}
+
+/* ===============================
+   Buttons
+   =============================== */
+.export-button {
+  background-color: var(--export-btn-bg);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.export-button:hover {
+  background-color: var(--export-btn-hover);
+}
+
+.delete-account-button {
+  background-color: var(--delete-btn-bg);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-account-button:hover {
+  background-color: var(--delete-btn-hover);
+}
+
+/* Settings.css - Add these styles for the theme preview */
+
+.theme-preview {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.preview-box {
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.preview-box.light {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  color: #1e293b;
+  border-color: #e2e8f0;
+}
+
+.preview-box.dark {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #f1f5f9;
+  border-color: #334155;
+}
+
+.preview-box h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.preview-box p {
+  margin: 0 0 1.5rem 0;
+  color: inherit;
+  opacity: 0.8;
+}
+
+.preview-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.preview-card {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+.preview-card h5 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.preview-card p {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+.preview-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background: var(--primary-color);
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preview-button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+/* Theme toggle preview */
+.theme-toggle-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.theme-toggle-preview button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle-preview button.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+/* ===============================
+   Responsive Design
+   =============================== */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .settings-tabs {
+    flex-wrap: wrap;
+  }
+
+  .settings-tabs button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .settings-content {
+    padding: 20px;
+  }
+
+  .security-actions {
+    flex-direction: column;
+  }
+}
