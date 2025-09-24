@@ -13,7 +13,7 @@ import {
 import Sidebar from "./Sidebar";
 import "./Dashboard.css";
 
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user, onLogout }) => {
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
   const [teams, setTeams] = useState([]);
@@ -26,14 +26,9 @@ const Dashboard = ({ user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is authenticated before loading data
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-      return;
-    }
+    if (isLoggingOut) return;
     fetchDashboardData();
-  }, [navigate]);
+  }, [isLoggingOut]);
 
   const fetchDashboardData = async () => {
     try {
@@ -43,8 +38,7 @@ const Dashboard = ({ user }) => {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        setError("Authentication token missing. Please log in again.");
-        setTimeout(() => navigate("/login"), 2000);
+        navigate("/login", { replace: true });
         return;
       }
 
@@ -53,17 +47,12 @@ const Dashboard = ({ user }) => {
         "Content-Type": "application/json",
       };
 
-      // Use Promise.allSettled to handle partial failures gracefully
-      const [tasksResult, projectsResult, teamsResult] =
-        await Promise.allSettled([
-          axios.get("https://backend3-project.vercel.app/tasks", { headers }),
-          axios.get("https://backend3-project.vercel.app/projects", {
-            headers,
-          }),
-          axios.get("https://backend3-project.vercel.app/teams", { headers }),
-        ]);
+      const [tasksResult, projectsResult, teamsResult] = await Promise.allSettled([
+        axios.get("https://backend3-project.vercel.app/tasks", { headers }),
+        axios.get("https://backend3-project.vercel.app/projects", { headers }),
+        axios.get("https://backend3-project.vercel.app/teams", { headers }),
+      ]);
 
-      // Handle each response separately
       if (tasksResult.status === "fulfilled") {
         setTasks(tasksResult.value.data);
       } else {
@@ -82,14 +71,13 @@ const Dashboard = ({ user }) => {
         setTeams(teamsResult.value.data);
       } else {
         console.error("Failed to fetch teams:", teamsResult.reason);
-        // Teams might not be critical, so we don't set error for this
       }
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
-
       if (error.response?.status === 403 || error.response?.status === 401) {
-        setError("Your session has expired. Please log in again.");
-        handleCleanLogout();
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate("/login", { replace: true });
       } else if (error.code === "ERR_NETWORK") {
         setError("Network error. Please check your connection and try again.");
       } else {
@@ -100,26 +88,15 @@ const Dashboard = ({ user }) => {
     }
   };
 
-  const handleCleanLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    // Use replace instead of push to avoid adding to history
-    navigate("/login", { replace: true });
-  };
-
   const handleLogout = () => {
     setIsLoggingOut(true);
-    try {
-      handleCleanLogout();
-    } catch (error) {
-      console.error("Error during logout:", error);
-      // Force logout even if there's an error
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      window.location.href = "/login";
-    } finally {
-      setIsLoggingOut(false);
-    }
+    onLogout(); // Sync with App.js state
+    setTasks([]);
+    setProjects([]);
+    setTeams([]);
+    setError("");
+    setIsLoading(false);
+    navigate("/login", { replace: true });
   };
 
   const handleRetry = () => {
@@ -127,7 +104,6 @@ const Dashboard = ({ user }) => {
     fetchDashboardData();
   };
 
-  // Filter tasks for the logged-in user only
   const getUserTasks = () => {
     if (!user) return [];
     return tasks.filter(
@@ -137,14 +113,11 @@ const Dashboard = ({ user }) => {
     );
   };
 
-  // Filter tasks based on status and search term
   const filteredTasks = () => {
     let userTasks = getUserTasks();
-
     if (taskFilter !== "all") {
       userTasks = userTasks.filter((task) => task.status === taskFilter);
     }
-
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
       userTasks = userTasks.filter(
@@ -157,17 +130,12 @@ const Dashboard = ({ user }) => {
             task.tags.some((tag) => tag.toLowerCase().includes(searchLower)))
       );
     }
-
     return userTasks;
   };
 
-  // Filter projects based on status and search term
   const filteredProjects = () => {
     let filtered = projects;
-
-    // Filter by project status (using task status for demonstration)
     if (projectFilter !== "all") {
-      // For demonstration, we'll check if any task in the project matches the status
       filtered = filtered.filter((project) => {
         const projectTasks = tasks.filter(
           (task) => task.project && task.project._id === project._id
@@ -175,8 +143,6 @@ const Dashboard = ({ user }) => {
         return projectTasks.some((task) => task.status === projectFilter);
       });
     }
-
-    // Filter by search term
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
       filtered = filtered.filter(
@@ -186,44 +152,24 @@ const Dashboard = ({ user }) => {
             project.description.toLowerCase().includes(searchLower))
       );
     }
-
     return filtered;
   };
 
-  // Count tasks by status for a project
   const getProjectTaskCounts = (projectId) => {
     const projectTasks = tasks.filter(
       (task) => task.project && task.project._id === projectId
     );
-
     return {
       total: projectTasks.length,
       todo: projectTasks.filter((task) => task.status === "To Do").length,
-      inProgress: projectTasks.filter((task) => task.status === "In Progress")
-        .length,
-      completed: projectTasks.filter((task) => task.status === "Completed")
-        .length,
+      inProgress: projectTasks.filter((task) => task.status === "In Progress").length,
+      completed: projectTasks.filter((task) => task.status === "Completed").length,
     };
   };
 
   const navigateTo = (path) => {
     navigate(path);
   };
-
-  // Show loading state during logout
-  if (isLoggingOut) {
-    return (
-      <div className="dashboard-container">
-        <Sidebar />
-        <div className="main-content">
-          <div className="loading-spinner">
-            <div className="spinner"></div>
-            <p>Logging out...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (isLoading) {
     return (
@@ -265,7 +211,6 @@ const Dashboard = ({ user }) => {
   return (
     <div className="dashboard-container">
       <Sidebar />
-
       <div className="main-content">
         <div className="dashboard-header">
           <h1>Dashboard Overview</h1>
@@ -284,18 +229,12 @@ const Dashboard = ({ user }) => {
               <span className="welcome-text">
                 <FaUser className="user-icon" /> Welcome, {user?.name}
               </span>
-              <button 
-                onClick={handleLogout} 
-                className="logout-btn"
-                disabled={isLoggingOut}
-              >
-                <FaSignOutAlt /> {isLoggingOut ? "Logging out..." : "Logout"}
+              <button onClick={handleLogout} className="logout-btn">
+                <FaSignOutAlt /> Logout
               </button>
             </div>
           </div>
         </div>
-
-        {/* Projects Section */}
         <div className="projects-section">
           <div className="section-header">
             <h2>All Projects</h2>
@@ -320,20 +259,18 @@ const Dashboard = ({ user }) => {
             </div>
           </div>
           <div className="projects-list">
-            {filteredProjects().map((project) => {
-              return (
-                <div key={project._id} className="project-card">
-                  <h3>{project.name}</h3>
-                  <p>{project.description || "No description"}</p>
-                  <button
-                    className="view-btn"
-                    onClick={() => navigateTo(`/projects/${project._id}`)}
-                  >
-                    <FaEye /> View Project
-                  </button>
-                </div>
-              );
-            })}
+            {filteredProjects().map((project) => (
+              <div key={project._id} className="project-card">
+                <h3>{project.name}</h3>
+                <p>{project.description || "No description"}</p>
+                <button
+                  className="view-btn"
+                  onClick={() => navigateTo(`/projects/${project._id}`)}
+                >
+                  <FaEye /> View Project
+                </button>
+              </div>
+            ))}
             {filteredProjects().length === 0 && (
               <div className="empty-state">
                 <p>
@@ -351,8 +288,6 @@ const Dashboard = ({ user }) => {
             )}
           </div>
         </div>
-
-        {/* Tasks Section */}
         <div className="tasks-section">
           <div className="section-header">
             <h2>My Tasks</h2>
@@ -377,8 +312,6 @@ const Dashboard = ({ user }) => {
               </button>
             </div>
           </div>
-
-          {/* Tasks List */}
           <div className="tasks-list">
             {filteredTasks().length > 0 ? (
               filteredTasks().map((task) => (
@@ -387,14 +320,10 @@ const Dashboard = ({ user }) => {
                     <h4>{task.name}</h4>
                     <div className="task-details">
                       <span className="project">
-                        Project:{" "}
-                        {task.project ? task.project.name : "No project"}
+                        Project: {task.project ? task.project.name : "No project"}
                       </span>
                       <span className="due-date">
-                        Due:{" "}
-                        {new Date(
-                          task.dueDate || task.createdAt
-                        ).toLocaleDateString()}
+                        Due: {new Date(task.dueDate || task.createdAt).toLocaleDateString()}
                       </span>
                       <span className="owner">
                         Owner:{" "}
@@ -405,9 +334,7 @@ const Dashboard = ({ user }) => {
                           : "Unassigned"}
                       </span>
                       <span
-                        className={`status ${task.status
-                          .replace(" ", "-")
-                          .toLowerCase()}`}
+                        className={`status ${task.status.replace(" ", "-").toLowerCase()}`}
                       >
                         {task.status}
                       </span>
