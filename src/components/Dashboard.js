@@ -22,11 +22,18 @@ const Dashboard = ({ user }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check if user is authenticated before loading data
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
     fetchDashboardData();
-  }, []);
+  }, [navigate]);
 
   const fetchDashboardData = async () => {
     try {
@@ -82,9 +89,7 @@ const Dashboard = ({ user }) => {
 
       if (error.response?.status === 403 || error.response?.status === 401) {
         setError("Your session has expired. Please log in again.");
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        setTimeout(() => navigate("/login"), 2000);
+        handleCleanLogout();
       } else if (error.code === "ERR_NETWORK") {
         setError("Network error. Please check your connection and try again.");
       } else {
@@ -95,10 +100,26 @@ const Dashboard = ({ user }) => {
     }
   };
 
-  const handleLogout = () => {
+  const handleCleanLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    navigate("/login");
+    // Use replace instead of push to avoid adding to history
+    navigate("/login", { replace: true });
+  };
+
+  const handleLogout = () => {
+    setIsLoggingOut(true);
+    try {
+      handleCleanLogout();
+    } catch (error) {
+      console.error("Error during logout:", error);
+      // Force logout even if there's an error
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   const handleRetry = () => {
@@ -189,6 +210,21 @@ const Dashboard = ({ user }) => {
     navigate(path);
   };
 
+  // Show loading state during logout
+  if (isLoggingOut) {
+    return (
+      <div className="dashboard-container">
+        <Sidebar />
+        <div className="main-content">
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <p>Logging out...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (isLoading) {
     return (
       <div className="dashboard-container">
@@ -248,8 +284,12 @@ const Dashboard = ({ user }) => {
               <span className="welcome-text">
                 <FaUser className="user-icon" /> Welcome, {user?.name}
               </span>
-              <button onClick={handleLogout} className="logout-btn">
-                <FaSignOutAlt /> Logout
+              <button 
+                onClick={handleLogout} 
+                className="logout-btn"
+                disabled={isLoggingOut}
+              >
+                <FaSignOutAlt /> {isLoggingOut ? "Logging out..." : "Logout"}
               </button>
             </div>
           </div>
