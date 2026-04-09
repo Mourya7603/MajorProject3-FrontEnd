@@ -1,70 +1,194 @@
-# Getting Started with Create React App
+# Workasana - Project Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-featured project management and team collaboration platform. Workasana helps teams track projects, manage tasks, collaborate within teams, and generate insightful reports.
 
-## Available Scripts
+🌐 **Live Demo:** [major-project3-front-end.vercel.app](https://major-project3-front-end.vercel.app)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## ✨ Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Core Functionality
+- **User Authentication** - Secure signup and login system
+- **Dashboard** - Overview of all projects and personal tasks
+- **Project Management** - Create, view, and manage projects
+- **Task Management** - Create, assign, and track tasks with status updates
+- **Team Management** - Create teams and manage team members
+- **Dark/Light Theme** - Toggle between dark and light mode for comfortable viewing
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Reports & Analytics
+- **Daily Completed Tasks** - Visual chart of tasks completed over time
+- **Pending Work Analysis** - Track pending days and tasks
+- **Team Performance** - Tasks closed by team (Pie chart)
+- **Individual Performance** - Tasks closed by owner (Bar chart)
+- **Date Range Filtering** - Custom date selection for reports
 
-### `npm test`
+### User Experience
+- Responsive design for desktop and mobile
+- Real-time data updates
+- Intuitive navigation with collapsible sidebar
+- Form validation and error handling
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛠️ Technologies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Category | Technologies |
+|----------|-------------|
+| **Frontend** | React.js, React Router, Context API |
+| **Styling** | CSS3 with Dark/Light theme support |
+| **Charts** | Chart.js for data visualization |
+| **HTTP Client** | Axios |
+| **Icons** | React Icons (Fa icons family) |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Quick Start
 
-### `npm run eject`
+bash
+# Clone the repository
+git clone https://github.com/Mourya7603/MajorProject3-FrontEnd.git
+cd MajorProject3-FrontEnd
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Install dependencies
+npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Start development server
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Build for production
+npm run build
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
+## 📡 API Integration
 
-## Learn More
+This frontend connects to a backend API at `https://backend3-project.vercel.app`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Key API Endpoints
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/login` | User login |
+| POST | `/auth/signup` | User registration |
+| GET | `/projects` | Fetch all projects |
+| GET | `/tasks` | Fetch all tasks |
+| GET | `/teams` | Fetch all teams |
+| POST | `/projects` | Create new project |
+| POST | `/tasks` | Create new task |
+| POST | `/teams` | Create new team |
+| GET | `/report/last-week` | Get last week's completed tasks |
+| GET | `/report/pending` | Get pending work summary |
+| GET | `/report/closed-tasks` | Get grouped closed tasks |
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🎯 Features in Detail
 
-### Analyzing the Bundle Size
+### Authentication
+- JWT token-based authentication
+- Protected routes for authenticated users
+- Automatic redirect to login on session expiry
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Dashboard
+- Personal task list filtered by current user
+- All projects overview
+- Search functionality for tasks and projects
+- Status filters (To Do, In Progress, Completed, Blocked)
 
-### Making a Progressive Web App
+### Project Management
+- Create new projects with name and description
+- View project details with associated tasks
+- Filter tasks by owner and tags
+- Sort tasks by due date, priority, or status
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Task Management
+- Create tasks with name, project, team, owners, tags
+- Set estimated completion time
+- Update task status (To Do, In Progress, Completed, Blocked)
+- Mark tasks as complete with one click
 
-### Advanced Configuration
+### Team Management
+- Create teams with name and description
+- Add/remove team members
+- View team members list
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Reports
+- Visual charts for work completed
+- Pending work analysis
+- Team and individual performance metrics
+- Date range filtering
+- Export reports as JSON
 
-### Deployment
+### Settings
+- Profile information update
+- Password change
+- Notification preferences
+- Theme customization (Light/Dark)
+- Data export and account deletion
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## 🎨 Theme Support
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Workasana includes both **Light** and **Dark** themes:
+- Toggle via sidebar button or settings page
+- Preference saved in localStorage
+- Smooth transitions between themes
+
+---
+
+## 📱 Responsive Design
+
+The application is fully responsive and works on:
+- Desktop computers
+- Tablets
+- Mobile devices
+
+The sidebar collapses on smaller screens for better space utilization.
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is for educational purposes. Please contact the maintainer for permission to use or modify.
+
+---
+
+## 📧 Contact
+
+**Developer:** Mangalapalli Mourya
+
+**Email:** magalapallimourya@gmail.com
+
+**GitHub:** [@Mourya7603](https://github.com/Mourya7603)
+
+---
+
+## 🔗 Related Repositories
+
+- **Frontend:** [MajorProject3-FrontEnd](https://github.com/Mourya7603/MajorProject3-FrontEnd)
+
+---
+
+## 🙏 Acknowledgments
+
+- React.js team for the amazing framework
+- Chart.js for data visualization
+- Vercel for hosting
+
+---
+
+⭐ If you found this project helpful, please give it a star on GitHub!
+```
+
+This README provides a complete overview of your Workasana project, including features, technologies, setup instructions, project structure, API endpoints, and usage details. You can copy this directly into your GitHub repository's `README.md` file.
